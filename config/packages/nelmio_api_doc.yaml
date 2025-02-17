@@ -1,0 +1,24 @@
+nelmio_api_doc:
+  areas:
+    default:
+      path_patterns:
+        - '^/(?!_error)'
+  documentation:
+    servers:
+      - url: http://127.0.0.1:8000/
+        description: API over HTTP
+      - url: https://127.0.0.1:8000/
+        description: API over HTTPS
+    info:
+      title: My App
+      description: This is an awesome app!
+      version: 1.0.0
+      x-build: #CommitHash
+    components:
+      securitySchemes:
+        Bearer:
+          type: http
+          scheme: bearer
+          bearerFormat: JWT
+    security:
+      - Bearer: [ ]
