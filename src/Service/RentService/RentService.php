@@ -13,6 +13,8 @@ use App\Service\Payments\MonthlyPaymentsService;
 use App\Service\RentService\MonthlyRentService;
 use DateMalformedStringException;
 use DateTimeImmutable;
+use http\Env\Response;
+use RuntimeException;
 
 readonly class RentService
 {
@@ -21,8 +23,7 @@ readonly class RentService
         private RentalContractRepository $contractRepository,
         private MonthlyRentService $monthlyRentService,
         private MonthlyPaymentsService $monthlyPaymentsService
-    ) {
-    }
+    ) {}
 
     /**
      * @param int $customerId
@@ -138,6 +139,9 @@ readonly class RentService
     public function getRentalContract(int $id): RentalContractDTO
     {
         $rentalContractEntity = $this->contractRepository->findOneBy(['id' => $id]);
+        if (is_null($rentalContractEntity)) {
+            throw new RuntimeException('Contract not found');
+        }
         $rentalContractDTO = RentalContractDTO::fromEntity($rentalContractEntity);
 
         $monthlyRents = $this->monthlyRentService->getMonthlyRentsByContractId($id);
