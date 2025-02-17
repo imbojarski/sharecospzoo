@@ -37,7 +37,7 @@ class SyncCurrenciesCommand extends Command
         $io->info('Fetching currencies rates');
 
         try {
-            $this->currencyRateService->storeDailyRates();
+            $this->currencyRateService->storeFetchedDailyRates();
             $io->success('Currencies rates stored in the database successfully');
         } catch (Exception $e) {
             $io->error('Failed to store currencies rates: ' . $e->getMessage());

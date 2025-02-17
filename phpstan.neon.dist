@@ -1,0 +1,23 @@
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-symfony/rules.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-doctrine/rules.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+parameters:
+    level: 8
+    paths:
+        - bin/
+        - config/
+        - public/
+        - src/
+        - tests/
+    ignoreErrors:
+            -
+                message: '#Property [a-zA-Z0-9\\_]+::\$[a-zA-Z0-9_]+ is never written, only read\.#'
+                paths:
+                    - %currentWorkingDirectory%/src/Entity/*
+            -
+                message: '#.*#'
+                paths:
+                    - %currentWorkingDirectory%/src/Command/*
